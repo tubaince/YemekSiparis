@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
             binding.recyclerView.adapter = yemekAdapter
         }
 
-        binding.recyclerView.adapter = yemekAdapter
+
     }
 
     private fun setupRecyclerView() {

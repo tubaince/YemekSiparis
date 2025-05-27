@@ -7,10 +7,6 @@ import androidx.core.view.WindowCompat // Bu import gerekli
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Edge-to-edge görünüm için
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)  // activity_main.xml içinde FragmentContainerView olmalı
     }
 }
