@@ -1,0 +1,42 @@
+package com.example.yemeksiparis2.ui.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.yemeksiparis2.databinding.SepetRowBinding
+import com.example.yemeksiparis2.model.SepetYemek
+
+class SepetAdapter(
+    private val sepetYemekListesi: List<SepetYemek>,
+    private val onDeleteClick: (SepetYemek) -> Unit
+) : RecyclerView.Adapter<SepetAdapter.SepetViewHolder>() {
+
+    inner class SepetViewHolder(val binding: SepetRowBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(sepetYemek: SepetYemek) {
+            binding.yemekAdiText.text = sepetYemek.yemek_adi
+            binding.yemekAdetText.text = "Adet: ${sepetYemek.yemek_siparis_adet}"
+            binding.yemekFiyatText.text = "${sepetYemek.yemek_fiyat} ₺"
+
+            val resimUrl = "http://kasimadalan.pe.hu/yemekler/resimler/${sepetYemek.yemek_resim_adi}"
+            Glide.with(binding.root.context)
+                .load(resimUrl)
+                .into(binding.yemekResimImage)
+
+            binding.deleteButton.setOnClickListener {
+                onDeleteClick(sepetYemek)
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SepetViewHolder {
+        val binding = SepetRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return SepetViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: SepetViewHolder, position: Int) {
+        holder.bind(sepetYemekListesi[position])
+    }
+
+    override fun getItemCount(): Int = sepetYemekListesi.size
+}

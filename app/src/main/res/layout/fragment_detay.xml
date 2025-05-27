@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/detayFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Yemek resmi -->
+        <ImageView
+            android:id="@+id/yemekResimImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop" />
+
+        <!-- Yemek adı -->
+        <TextView
+            android:id="@+id/yemekAdiText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:paddingTop="8dp"
+            android:text="Yemek Adı" />
+
+        <!-- Yemek fiyatı -->
+        <TextView
+            android:id="@+id/yemekFiyatText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fiyat"
+            android:paddingTop="4dp"/>
+
+        <!-- Adet seçimi için butonlar ve adet sayısı -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/azaltButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="-"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/adetSayisi"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="1"
+                android:textSize="18sp"
+                android:layout_marginHorizontal="12dp"
+                android:background="@android:drawable/editbox_background"/>
+
+            <Button
+                android:id="@+id/artirButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="+"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <!-- Sepete ekle butonu -->
+        <Button
+            android:id="@+id/sepeteEkleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sepete Ekle"
+            android:layout_marginTop="24dp" />
+
+    </LinearLayout>
+
+</ScrollView>
