@@ -64,10 +64,11 @@ class DetayFragment : Fragment() {
             val adet = binding.adetSayisi.text.toString().toInt()
             Log.d("DetayFragment", "Sepete eklenecek: ${secilenYemek.yemek_adi}, adet: $adet")
             sepetViewModel.sepeteYemekEkle(
-                secilenYemek.yemek_adi,
-                secilenYemek.yemek_resim_adi,
-                secilenYemek.yemek_fiyat.toInt(),
-                adet,
+                yemekId = secilenYemek.yemek_id,
+                yemekAdi = secilenYemek.yemek_adi,
+                yemekResimAdi = secilenYemek.yemek_resim_adi,
+                yemekFiyat = secilenYemek.yemek_fiyat,
+                yemekAdet = adet,
                 kullaniciAdi = "tuğba123"
             )
             Toast.makeText(requireContext(), "Sepete eklendi", Toast.LENGTH_SHORT).show()

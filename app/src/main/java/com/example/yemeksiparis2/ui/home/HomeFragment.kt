@@ -52,9 +52,10 @@ class HomeFragment : Fragment() {
                 sepetViewModel.sepeteYemekEkle(
                     yemekAdi = secilenYemek.yemek_adi,
                     yemekResimAdi = secilenYemek.yemek_resim_adi,
-                    yemekFiyat = secilenYemek.yemek_fiyat.toInt(),
+                    yemekFiyat = secilenYemek.yemek_fiyat.toString(),
                     yemekAdet = 1,
-                    kullaniciAdi = "kullanici"  // Gerçek kullanıcı adı ile değiştir
+                    kullaniciAdi = "tuba123",
+                    yemekId = secilenYemek.yemek_id
                 )
                 Toast.makeText(requireContext(), "${secilenYemek.yemek_adi} sepete eklendi", Toast.LENGTH_SHORT).show()
             }
@@ -62,6 +63,7 @@ class HomeFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = yemekAdapter
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

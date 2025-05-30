@@ -1,12 +1,11 @@
 package com.example.yemeksiparis2.ui.sepet
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yemeksiparis2.databinding.FragmentSepetBinding
 import com.example.yemeksiparis2.ui.adapter.SepetAdapter
@@ -17,11 +16,12 @@ class SepetFragment : Fragment() {
     private var _binding: FragmentSepetBinding? = null
     private val binding get() = _binding!!
 
-    private val sepetViewModel: SepetViewModel by viewModels()
+    private lateinit var sepetViewModel: SepetViewModel
     private lateinit var sepetAdapter: SepetAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSepetBinding.inflate(inflater, container, false)
         return binding.root
@@ -29,11 +29,11 @@ class SepetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("DetayFragment", "onViewCreated tetiklendi")
 
-        sepetAdapter = SepetAdapter(emptyList())
-        binding.sepetRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.sepetRecyclerView.adapter = sepetAdapter
+        sepetViewModel = ViewModelProvider(this)[SepetViewModel::class.java]
+        sepetAdapter = SepetAdapter(listOf())
+        binding.recyclerViewSepet.adapter = sepetAdapter
+        binding.recyclerViewSepet.layoutManager = LinearLayoutManager(requireContext())
 
         sepetViewModel.sepetYemekleri.observe(viewLifecycleOwner) { sepetUrunler ->
             sepetAdapter.updateSepetList(sepetUrunler)
@@ -42,9 +42,6 @@ class SepetFragment : Fragment() {
             }
             binding.toplamFiyatTextView.text = "Toplam: $toplamFiyat ₺"
         }
-
-        // Kullanıcı adı parametresi kaldırıldı
-        sepetViewModel.getSepetYemekleri()
     }
 
     override fun onDestroyView() {

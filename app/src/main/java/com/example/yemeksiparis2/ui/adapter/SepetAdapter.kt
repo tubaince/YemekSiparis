@@ -8,7 +8,7 @@ import com.example.yemeksiparis2.databinding.SepetRowBinding
 import com.example.yemeksiparis2.model.SepetYemek
 
 class SepetAdapter(
-    private var sepetYemekListesi: List<SepetYemek>
+    private var sepetUrunler: List<SepetYemek>
 ) : RecyclerView.Adapter<SepetAdapter.SepetViewHolder>() {
 
     inner class SepetViewHolder(val binding: SepetRowBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -28,13 +28,13 @@ class SepetAdapter(
     }
 
     override fun onBindViewHolder(holder: SepetViewHolder, position: Int) {
-        holder.bind(sepetYemekListesi[position])
+        holder.bind(this.sepetUrunler[position])
     }
 
-    override fun getItemCount(): Int = sepetYemekListesi.size
+    override fun getItemCount(): Int = this.sepetUrunler.size
 
     fun updateSepetList(newList: List<SepetYemek>) {
-        sepetYemekListesi = newList
+        this.sepetUrunler = newList
         notifyDataSetChanged()
     }
 }
