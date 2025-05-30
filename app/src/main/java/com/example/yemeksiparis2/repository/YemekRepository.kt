@@ -29,7 +29,7 @@ class YemekRepository {
         })
         return data
     }
-    fun sepeteYemekEkle(yemek_id: String, yemek_adi: String, yemek_fiyat: Int, yemek_resim_adi: String, adet: Int) {
+    fun sepeteYemekEkle(yemek_id: String, yemek_adi: String, yemek_fiyat: String, yemek_resim_adi: String, adet: Int) {
         RetrofitClient.apiService.sepeteYemekEkle(yemek_id, yemek_adi, yemek_fiyat, yemek_resim_adi, adet).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 // Başarılı ekleme işlemi için gerekirse işlem yapılabilir

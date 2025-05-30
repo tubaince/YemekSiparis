@@ -15,7 +15,7 @@ class SepetViewModel : ViewModel() {
     fun sepeteYemekEkle(
         yemekAdi: String,
         yemekResimAdi: String,
-        yemekFiyat: Int,
+        yemekFiyat: Any,
         yemekAdet: Int,
         kullaniciAdi: String
     ) {
@@ -24,12 +24,13 @@ class SepetViewModel : ViewModel() {
             sepet_yemek_id = "0", // varsayılan, API bunu atayacaktır
             yemek_id = "0", // veya gerçek ID
             yemek_adi = yemekAdi,
-            yemek_fiyat = yemekFiyat,
+            yemek_fiyat = yemekFiyat.toString(),
             yemek_resim_adi = yemekResimAdi,
             yemek_siparis_adet = yemekAdet,
             kullanici_adi = kullaniciAdi
         )
         yemekEkle(sepetYemek)
+
     }
 
     // SepetFragment için var olan fonksiyon

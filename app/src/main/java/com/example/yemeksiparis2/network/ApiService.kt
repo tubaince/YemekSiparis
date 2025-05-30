@@ -4,6 +4,7 @@ import com.example.yemeksiparis2.model.YemekCevap
 import com.example.yemeksiparis2.model.SepetYemek
 import retrofit2.Call
 import retrofit2.http.*
+import retrofit2.http.GET
 
 interface ApiService {
 
@@ -15,7 +16,7 @@ interface ApiService {
     fun sepeteYemekEkle(
         @Field("yemek_id") yemek_id: String,
         @Field("yemek_adi") yemek_adi: String,
-        @Field("yemek_fiyat") yemek_fiyat: Int,
+        @Field("yemek_fiyat") yemek_fiyat: String,
         @Field("yemek_resim_adi") yemek_resim_adi: String,
         @Field("yemek_siparis_adet") yemek_siparis_adet: Int,
         @Field("kullanici_adi") kullanici_adi: String = "deneme"
