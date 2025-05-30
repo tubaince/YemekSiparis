@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.yemeksiparis2.model.Yemek
 import com.example.yemeksiparis2.model.SepetYemek
 import com.example.yemeksiparis2.network.RetrofitClient
+import com.example.yemeksiparis2.model.YemekCevap
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,22 +14,21 @@ class YemekRepository {
 
     fun yemekleriGetir(): LiveData<List<Yemek>> {
         val data = MutableLiveData<List<Yemek>>()
-        RetrofitClient.apiService.tumYemekleriGetir().enqueue(object : Callback<List<Yemek>> {
-            override fun onResponse(call: Call<List<Yemek>>, response: Response<List<Yemek>>) {
+        RetrofitClient.apiService.tumYemekleriGetir().enqueue(object : Callback<YemekCevap> {
+            override fun onResponse(call: Call<YemekCevap>, response: Response<YemekCevap>) {
                 if (response.isSuccessful) {
-                    data.value = response.body() ?: emptyList()
+                    data.value = response.body()?.yemekler ?: emptyList()
                 } else {
                     data.value = emptyList()
                 }
             }
 
-            override fun onFailure(call: Call<List<Yemek>>, t: Throwable) {
+            override fun onFailure(call: Call<YemekCevap>, t: Throwable) {
                 data.value = emptyList()
             }
         })
         return data
     }
-
     fun sepeteYemekEkle(yemek_id: String, yemek_adi: String, yemek_fiyat: Int, yemek_resim_adi: String, adet: Int) {
         RetrofitClient.apiService.sepeteYemekEkle(yemek_id, yemek_adi, yemek_fiyat, yemek_resim_adi, adet).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {

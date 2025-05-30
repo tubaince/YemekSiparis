@@ -2,7 +2,8 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    id("androidx.navigation.safeargs.kotlin") // ✅ Safe Args Plugin
+    id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -41,10 +42,16 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    // ✅ Çakışan modülleri burada devre dışı bırakıyoruz
+    configurations.all {
+        exclude(group = "jakarta.activation", module = "jakarta.activation-api")
+        exclude(group = "com.sun.activation", module = "javax.activation")
+    }
 }
 
 dependencies {
-    // ✅ Navigation Safe Args Destekleri
+    // ✅ Navigation Safe Args
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
@@ -52,6 +59,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("org.jetbrains.kotlin:kotlin-parcelize-runtime:1.8.0")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")

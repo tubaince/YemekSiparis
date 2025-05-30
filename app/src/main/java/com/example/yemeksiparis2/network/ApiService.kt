@@ -1,6 +1,6 @@
 package com.example.yemeksiparis2.network
 
-import com.example.yemeksiparis2.model.Yemek
+import com.example.yemeksiparis2.model.YemekCevap
 import com.example.yemeksiparis2.model.SepetYemek
 import retrofit2.Call
 import retrofit2.http.*
@@ -8,7 +8,7 @@ import retrofit2.http.*
 interface ApiService {
 
     @GET("tumYemekleriGetir.php")
-    fun tumYemekleriGetir(): Call<List<Yemek>>
+    fun tumYemekleriGetir(): Call<YemekCevap>
 
     @FormUrlEncoded
     @POST("sepeteYemekEkle.php")
