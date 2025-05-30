@@ -9,7 +9,8 @@ import com.example.yemeksiparis2.model.Yemek
 
 class YemekAdapter(
     private var yemekListesi: List<Yemek>,  // var yapıldı
-    private val onItemClick: (Yemek) -> Unit
+    private val onItemClick: (Yemek) -> Unit,
+    private val onSepeteEkleClick: (Yemek) -> Unit
 ) : RecyclerView.Adapter<YemekAdapter.YemekViewHolder>() {
 
     init {
@@ -37,7 +38,16 @@ class YemekAdapter(
     }
 
     override fun onBindViewHolder(holder: YemekViewHolder, position: Int) {
-        holder.bind(yemekListesi[position])
+
+        val yemek = yemekListesi[position]
+        holder.bind(yemek)
+
+
+
+        // Sepete ekle butonunun click listener'ı:
+        holder.binding.buttonSepeteEkle.setOnClickListener {
+            onSepeteEkleClick(yemek)
+        }
     }
 
     override fun getItemCount(): Int = yemekListesi.size

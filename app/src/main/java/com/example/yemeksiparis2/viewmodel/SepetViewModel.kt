@@ -1,6 +1,7 @@
 package com.example.yemeksiparis2.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.yemeksiparis2.model.SepetYemek
 import com.example.yemeksiparis2.repository.YemekRepository
@@ -9,20 +10,26 @@ class SepetViewModel : ViewModel() {
 
     private val repository = YemekRepository()
 
-    val sepetYemekleri: LiveData<List<SepetYemek>> = repository.sepettekiYemekleriGetir()
+    private val _sepetYemekleri = MutableLiveData<List<SepetYemek>>()
+    val sepetYemekleri: LiveData<List<SepetYemek>> = _sepetYemekleri
 
-    // DetayFragment için: Basit parametrelerle ekleme
+    // KullaniciAdi parametresi kaldırıldı
+    fun getSepetYemekleri() {
+        repository.sepettekiYemekleriGetir().observeForever { liste ->
+            _sepetYemekleri.postValue(liste)
+        }
+    }
+
     fun sepeteYemekEkle(
         yemekAdi: String,
         yemekResimAdi: String,
-        yemekFiyat: Any,
+        yemekFiyat: Int,
         yemekAdet: Int,
         kullaniciAdi: String
     ) {
-        // SepetYemek objesi oluşturulup repository'ye gönderilir
         val sepetYemek = SepetYemek(
-            sepet_yemek_id = "0", // varsayılan, API bunu atayacaktır
-            yemek_id = "0", // veya gerçek ID
+            sepet_yemek_id = "0",
+            yemek_id = "0",
             yemek_adi = yemekAdi,
             yemek_fiyat = yemekFiyat.toString(),
             yemek_resim_adi = yemekResimAdi,
@@ -30,10 +37,8 @@ class SepetViewModel : ViewModel() {
             kullanici_adi = kullaniciAdi
         )
         yemekEkle(sepetYemek)
-
     }
 
-    // SepetFragment için var olan fonksiyon
     fun yemekEkle(sepetYemek: SepetYemek) {
         repository.sepeteYemekEkle(
             sepetYemek.yemek_id,
@@ -42,9 +47,13 @@ class SepetViewModel : ViewModel() {
             sepetYemek.yemek_resim_adi,
             sepetYemek.yemek_siparis_adet
         )
+        // Listeyi güncelle
+        getSepetYemekleri()
     }
 
     fun yemekSil(sepet_yemek_id: String) {
         repository.sepettenYemekSil(sepet_yemek_id)
+        // Listeyi güncelle
+        getSepetYemekleri()
     }
 }

@@ -8,8 +8,7 @@ import com.example.yemeksiparis2.databinding.SepetRowBinding
 import com.example.yemeksiparis2.model.SepetYemek
 
 class SepetAdapter(
-    private var sepetYemekListesi: List<SepetYemek>,
-    private val onDeleteClick: (SepetYemek) -> Unit
+    private var sepetYemekListesi: List<SepetYemek>
 ) : RecyclerView.Adapter<SepetAdapter.SepetViewHolder>() {
 
     inner class SepetViewHolder(val binding: SepetRowBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -18,14 +17,8 @@ class SepetAdapter(
             binding.yemekAdetText.text = "Adet: ${sepetYemek.yemek_siparis_adet}"
             binding.yemekFiyatText.text = "${sepetYemek.yemek_fiyat} ₺"
 
-            val resimUrl = "http://kasimadalan.pe.hu/yemekler/resimler/${sepetYemek.yemek_resim_adi}"
-            Glide.with(binding.root.context)
-                .load(resimUrl)
-                .into(binding.yemekResimImage)
-
-            binding.deleteButton.setOnClickListener {
-                onDeleteClick(sepetYemek)
-            }
+            val url = "http://kasimadalan.pe.hu/yemekler/resimler/${sepetYemek.yemek_resim_adi}"
+            Glide.with(binding.root.context).load(url).into(binding.yemekResimImage)
         }
     }
 
@@ -40,8 +33,7 @@ class SepetAdapter(
 
     override fun getItemCount(): Int = sepetYemekListesi.size
 
-    // Yeni: Adapter listesini güncelleyen fonksiyon
-    fun updateList(newList: List<SepetYemek>) {
+    fun updateSepetList(newList: List<SepetYemek>) {
         sepetYemekListesi = newList
         notifyDataSetChanged()
     }

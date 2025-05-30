@@ -1,6 +1,7 @@
 package com.example.yemeksiparis2.ui.detay
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,16 +62,18 @@ class DetayFragment : Fragment() {
 
         binding.sepeteEkleButton.setOnClickListener {
             val adet = binding.adetSayisi.text.toString().toInt()
+            Log.d("DetayFragment", "Sepete eklenecek: ${secilenYemek.yemek_adi}, adet: $adet")
             sepetViewModel.sepeteYemekEkle(
                 secilenYemek.yemek_adi,
                 secilenYemek.yemek_resim_adi,
-                secilenYemek.yemek_fiyat,
+                secilenYemek.yemek_fiyat.toInt(),
                 adet,
                 kullaniciAdi = "tuğba123"
             )
             Toast.makeText(requireContext(), "Sepete eklendi", Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()
         }
+
     }
 
     override fun onDestroyView() {

@@ -9,9 +9,16 @@
         android:id="@+id/homeFragment"
         android:name="com.example.yemeksiparis2.ui.home.HomeFragment"
         android:label="Yemekler">
+
+        <!-- Detay fragment'a geçiş -->
         <action
             android:id="@+id/action_homeFragment_to_detayFragment"
             app:destination="@id/detayFragment" />
+
+        <!-- Sepet fragment'a geçiş -->
+        <action
+            android:id="@+id/action_homeFragment_to_sepetFragment"
+            app:destination="@id/sepetFragment" />
     </fragment>
 
     <!-- Detay Fragment (Yemek detayları için) -->
