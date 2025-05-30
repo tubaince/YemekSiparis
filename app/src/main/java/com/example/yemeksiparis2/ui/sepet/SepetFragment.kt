@@ -32,16 +32,18 @@ class SepetFragment : Fragment() {
 
         setupRecyclerView()
 
+        // İlk olarak boş liste ile adapter initialize ediliyor
+        sepetAdapter = SepetAdapter(sepetYemekListesi) { silinecekYemek ->
+            sepetViewModel.yemekSil(silinecekYemek.sepet_yemek_id)
+            Toast.makeText(requireContext(), "Yemek silindi", Toast.LENGTH_SHORT).show()
+        }
+        binding.recyclerView.adapter = sepetAdapter
+
+        // Veriler değiştiğinde adapter güncelleniyor
         sepetViewModel.sepetYemekleri.observe(viewLifecycleOwner) { liste ->
             sepetYemekListesi = liste
-            sepetAdapter = SepetAdapter(liste) { silinecekYemek ->
-                sepetViewModel.yemekSil(silinecekYemek.sepet_yemek_id)
-                Toast.makeText(requireContext(), "Yemek silindi", Toast.LENGTH_SHORT).show()
-            }
-            binding.recyclerView.adapter = sepetAdapter
+            sepetAdapter.updateList(liste)  // Adapter içindeki listeyi güncellemek için method eklemelisin
         }
-
-        binding.recyclerView.adapter = sepetAdapter
     }
 
     private fun setupRecyclerView() {

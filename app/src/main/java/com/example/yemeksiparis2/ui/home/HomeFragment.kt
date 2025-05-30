@@ -1,6 +1,7 @@
 package com.example.yemeksiparis2.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +35,7 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
 
         yemekViewModel.yemekListesi.observe(viewLifecycleOwner) { yemekler ->
-
+            Log.d("yemek1", "Gelen yemekler: $yemekler")
             // Adapter içindeki verileri güncelle
             yemekAdapter.updateYemekList(yemekler)
         }

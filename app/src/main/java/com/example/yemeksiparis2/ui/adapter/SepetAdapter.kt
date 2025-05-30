@@ -8,7 +8,7 @@ import com.example.yemeksiparis2.databinding.SepetRowBinding
 import com.example.yemeksiparis2.model.SepetYemek
 
 class SepetAdapter(
-    private val sepetYemekListesi: List<SepetYemek>,
+    private var sepetYemekListesi: List<SepetYemek>,
     private val onDeleteClick: (SepetYemek) -> Unit
 ) : RecyclerView.Adapter<SepetAdapter.SepetViewHolder>() {
 
@@ -39,4 +39,10 @@ class SepetAdapter(
     }
 
     override fun getItemCount(): Int = sepetYemekListesi.size
+
+    // Yeni: Adapter listesini güncelleyen fonksiyon
+    fun updateList(newList: List<SepetYemek>) {
+        sepetYemekListesi = newList
+        notifyDataSetChanged()
+    }
 }

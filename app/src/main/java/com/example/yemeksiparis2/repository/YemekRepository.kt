@@ -1,5 +1,6 @@
 package com.example.yemeksiparis2.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.yemeksiparis2.model.Yemek
@@ -16,6 +17,8 @@ class YemekRepository {
         val data = MutableLiveData<List<Yemek>>()
         RetrofitClient.apiService.tumYemekleriGetir().enqueue(object : Callback<YemekCevap> {
             override fun onResponse(call: Call<YemekCevap>, response: Response<YemekCevap>) {
+                Log.d("yemekx", "HTTP Kodu: ${response.code()}")
+                Log.d("yemekz", "Cevap: ${response.body()}")
                 if (response.isSuccessful) {
                     data.value = response.body()?.yemekler ?: emptyList()
                 } else {
@@ -24,6 +27,7 @@ class YemekRepository {
             }
 
             override fun onFailure(call: Call<YemekCevap>, t: Throwable) {
+                Log.e("yemekhata", "Yemekler alınamadı: ${t.message}", t)
                 data.value = emptyList()
             }
         })
